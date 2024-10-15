@@ -1,70 +1,119 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-<title>Please Stay </title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Impress Your Crush</title>
 <style>
-body{
-    background-color: rgb(250, 207, 216)
+  body {
+    background-color: rgb(250, 207, 216);
+    font-family: Candara, Oswald, sans-serif;
+    margin: 0;
+    padding: 0;
   }
   p {
-  text-align: center;
-  font-size: 32px;
-  font-family: Candara, Oswald;
+    text-align: center;
+    font-size: 2rem;
+    margin-top: 2rem;
   }
   img {
-  display: block;
-  margin:  auto;
-  border: 1px;
-  border-radius: 4px;
-  width: 25%;
+    display: block;
+    margin: auto;
+    border-radius: 4px;
+    width: 80%; 
+    max-width: 100%; 
+  }
+  button {
+    border: none;
+    border-radius: 4px;
+    background-color: rgba(0, 255, 255, 0.5);
+    padding: 1rem 2rem;
+    margin: 1rem;
+    cursor: pointer;
+    font-size: 1.5rem;
+    position: absolute;
+  }
+  button:hover {
+    background-color: #50d1c0;
+    color: #fff;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
+  }
+
+  #yes{
+    margin-top: -2rem;
+  }
+
+  
+  @media (max-width: 768px) {
+    img {
+      width: 90%; 
+    }
+    button {
+      padding: 0.75rem 1.5rem; 
+      font-size: 1.25rem; 
+    }
+
   }
 </style>
 </head>
 <body>
-<p>You Don't want to go Right?</p>
-<img src="https://media.tenor.com/zGm5acSjHCIAAAAM/cat-begging.gif">
-  <style>
-    #yes {
-      position: fixed;
-      border: none;
-      border-radius: 2px;
-      background: rgba(0, 255, 255, 0.5);
-      top: 70%;
-      left: 55%;
-      transform: translate(-50%, -50%);
-    }
-    #yes:hover{
-    color: #50d1c0;
-    background:#fff;
-    text-decoration: none;
-    box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.4);
-    }
-    #NO {
-      position: absolute;
-      border:none;
-      border-radius: 2px;
-      background: rgba(0, 255, 255, 0.5);
-      left: 39%;
-      top: 68%;
-    }
-  </style>
+  <p>Would you like to stay Here?</p>
+  <img src="https://media.tenor.com/zGm5acSjHCIAAAAM/cat-begging.gif" alt="Begging cat GIF">
   <button id="yes">YES</button>
   <button id="NO">NO</button>
+  
   <script>
-  const button2 = document.getElementById('NO');
-  let left = 40;
-  button2.addEventListener('mouseover', function() {
-    if(left == 40){
-      left = 44;
-    }else{
-      left = 40;
-    }
-    this.style.left = left + '%';
-  });
+    const buttonYES = document.getElementById('yes');
+    const buttonNO = document.getElementById('NO');
+    let isMoving = false;
 
-  </script>
-  <script>document.getElementById('yes').addEventListener('click', function() {
-  alert('YAYY THANK U 👍😁😁👍');
-  });
+    buttonNO.addEventListener('click', function() {
+      if (!isMoving) {
+        isMoving = true;
+        moveButtonRandomly(buttonNO, buttonYES);
+      }
+    });
+
+    buttonYES.addEventListener('click', function() {
+      alert('YAYY! Thank you! 👍😁😁👍');
+    });
+
+    function moveButtonRandomly(button, referenceButton) {
+      let screenWidth = window.innerWidth;
+      let screenHeight = window.innerHeight;
+      let buttonWidth = button.offsetWidth;
+      let buttonHeight = button.offsetHeight;
+      let referenceLeft = referenceButton.offsetLeft;
+      let referenceTop = referenceButton.offsetTop;
+      let left, top;
+
+      do {
+        left = Math.random() * (screenWidth - buttonWidth);
+        top = Math.random() * (screenHeight - buttonHeight);
+      } while (left > referenceLeft - buttonWidth && left < referenceLeft + referenceButton.offsetWidth &&
+               top > referenceTop - buttonHeight && top < referenceTop + referenceButton.offsetHeight);
+
+      button.style.left = left + 'px';
+      button.style.top = top + 'px';
+
+      setTimeout(function() {
+        isMoving = false;
+        button.style.left = ''; 
+        button.style.top = ''; 
+      }, 3000); 
+    }
+    
+    const button2 = document.getElementById('NO');
+    let left = 40;
+    button2.addEventListener('mouseover', function() {
+      if(left == 40){
+        left = 44;
+      } else {
+        left = 40;
+      }
+      this.style.left = left + '%';
+    });
+
   </script>
 </body>
 </html>
